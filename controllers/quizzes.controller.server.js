@@ -4,13 +4,12 @@ const quizService
 module.exports = (app) => {
 
     const findAllQuizzes = (req, res) =>
-        res.send(quizService.findAllQuizzes())
+        quizService.findAllQuizzes()
+            .then(quizzes => res.send(quizzes))
 
-    const findQuizById = (req, res) => {
-        const quizId = req.params['qid']
-        const quiz = quizService.findQuizById(quizId)
-        res.json(quiz)
-    }
+    const findQuizById = (req, res) =>
+        quizService.findQuizById(req.params['qid'])
+            .then(quiz => res.send(quiz))
 
     // const deleteQuiz = (req, res) =>
     //     res.send(quizService.deleteQuiz(req.params['qid']))
